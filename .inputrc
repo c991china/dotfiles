@@ -1,0 +1,5 @@
+# 让终端支持按词删除、历史搜索
+"\C-w": unix-filename-rubout
+"\C-r": reverse-search-history
+set show-all-if-ambiguous on
+set completion-ignore-case on
