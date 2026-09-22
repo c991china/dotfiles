@@ -1,5 +1,42 @@
-# 让终端支持按词删除、历史搜索
-"\C-w": unix-filename-rubout
+# ~/.inputrc -- readline config. Affects bash, and anything else linked against
+# readline (python REPL, psql, sqlite3, etc.). Reload with: bind -f ~/.inputrc
+
+# ---- completion --------------------------------------------------------
+set completion-ignore-case on        # TAB completes regardless of case
+set completion-map-case on           # treat - and _ as the same when completing
+set show-all-if-ambiguous on         # one TAB lists matches, second completes
+set show-all-if-unmodified on
+set menu-complete-display-prefix on
+
+# Colour the completion list. Ignored by old readline, harmless.
+set colored-completion-prefix on
+set colored-stats on
+set visible-stats on                 # append / to dirs, @ to symlinks, * to exec
+
+# ---- history search ----------------------------------------------------
+# Up/Down search history by prefix. Type `git ` then Up cycles git commands.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Ctrl-R still does reverse-search; Ctrl-S forward (needs `stty -ixon` in bashrc
+# if you want it, otherwise the terminal eats it).
 "\C-r": reverse-search-history
-set show-all-if-ambiguous on
-set completion-ignore-case on
+"\C-s": forward-search-history
+
+# ---- editing -----------------------------------------------------------
+set editing-mode emacs
+set bell-style none                  # stop the beeping
+set mark-directories on
+set skip-completed-text on           # don't duplicate the completed suffix
+
+# PageUp/PageDown scroll through history too
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
+# Shift-Tab to go backwards through completion menu
+"\e[Z": menu-complete-backward
+
+$if Bash
+    # Ctrl-x Ctrl-e opens the current line in $EDITOR. Great for long commands.
+    "\C-x\C-e": edit-and-execute-command
+$endif
