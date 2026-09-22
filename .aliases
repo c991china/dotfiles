@@ -1,8 +1,63 @@
-# 常用别名（source 本文件）
-alias ll="ls -lh"
-alias la="ls -lah"
-alias ..="cd .."
-alias g="git"
-alias gs="git status"
-alias gp="git pull"
-alias gd="git diff"
+# ~/.aliases -- sourced from .bashrc. Plain aliases only; no functions here
+# (functions live in shell-helpers if you use that).
+
+# ---- navigation --------------------------------------------------------
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'                  # `-` goes to previous dir
+
+# ---- listing -----------------------------------------------------------
+alias ls='ls --color=auto'
+alias ll='ls -alFh'
+alias la='ls -A'
+alias lt='ls -alFht'               # newest first
+alias l.='ls -d .* --color=auto'
+
+# ---- git shortcuts -----------------------------------------------------
+alias gs='git status -sb'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias ga='git add'
+alias gaa='git add -A'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gco='git checkout'
+alias gb='git branch -vv'
+alias gl='git log --oneline --graph --decorate -20'
+alias glp='git log --pretty=format:"%C(yellow)%h%Creset %s %C(cyan)(%an, %ar)%Creset" -20'
+alias gp='git push'
+alias gpf='git push --force-with-lease'   # safer than --force
+alias gpl='git pull --rebase'
+alias gst='git stash'
+alias gstp='git stash pop'
+
+# ---- safety rails ------------------------------------------------------
+# Ask before clobbering. I have lost work to `> file` exactly once.
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+
+# ---- system ------------------------------------------------------------
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+alias ports='ss -tulpn'            # netstat is deprecated; ss is faster
+alias psg='ps aux | grep -v grep | grep -i'  # psg nginx
+alias path='echo -e "${PATH//:/\\n}"'
+
+# ---- docker / compose --------------------------------------------------
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+alias dimg='docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"'
+alias dlog='docker logs -f --tail=100'
+alias dprune='docker system prune -af'
+
+# ---- misc --------------------------------------------------------------
+alias reload='source ~/.bashrc'
+alias serve='python3 -m http.server 8000'
+alias myip='curl -s https://ifconfig.me && echo'
+alias week='date +%V'
+alias now='date +"%Y-%m-%d %H:%M:%S"'
