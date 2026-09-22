@@ -1,13 +1,98 @@
+# ~/.gitconfig
+#
+# CHANGE THIS. Every commit is authored by whatever is here.
 [user]
-    name = c991china
-    email = 277597486+c991china@users.noreply.github.com
-[alias]
-    st = status
-    co = checkout
-    br = branch
-    lg = log --oneline --graph --all
+    name = Your Name
+    email = you@example.com
+    signingkey =  # gpg key id, if you sign commits
+
+[init]
+    defaultBranch = main
+
 [core]
     editor = vim
-    autocrlf = input
+    autocrlf = input          # Linux/macOS; on Windows use `true`
+    whitespace = trailing-space,space-before-tab
+    pager = less -FRX
+    excludesfile = ~/.gitignore_global
+    # fsmonitor speeds up status on big repos (needs a daemon); harmless off
+    # fsmonitor = true
+
+[color]
+    ui = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[alias]
+    # short status
+    s = status -sb
+    # pretty one-line log
+    l = log --oneline --graph --decorate -20
+    # who changed a line and when
+    blame-who = blame -w -C -C
+    # list branches sorted by last commit
+    recent = for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:relative)' refs/heads/
+    # amend without editing the message
+    amend = commit --amend --no-edit
+    # unstage everything
+    unstage = reset HEAD --
+    # last commit's files
+    last = show --stat --oneline HEAD
+    # show what I committed today
+    today = log --since=midnight --author='Your Name' --oneline
+    # delete branches already merged into main
+    cleanup = "!git branch --merged main | grep -v '\\*\\|main' | xargs -r git branch -d"
+    # stash with a name
+    snap = "!f() { git stash push -u -m \"$*\"; }; f"
+    # undo last commit but keep changes staged
+    soft-undo = reset --soft HEAD~1
+
+[fetch]
+    prune = true
+    pruneTags = true
+
 [pull]
-    ff = only
+    # rebase local commits on pull instead of merge commits everywhere
+    rebase = true
+    # if you rebase and it would drop your commits, do it anyway (you can reflog)
+    rebaseAutostash = true
+
+[push]
+    default = current
+    autoSetupRemote = true    # `git push` on a new branch just works
+    followTags = true
+
+[rebase]
+    autosquash = true
+    autostash = true
+    updateRefs = true
+
+[merge]
+    conflictStyle = zdiff3     # shows the common ancestor inline; best default
+    ff = false                 # always make a merge commit on merge
+
+[diff]
+    algorithm = histogram      # better diffs than the default myers
+    colorMoved = zebra
+
+[rerere]
+    enabled = true             # remember how you resolved a conflict
+    autoupdate = true
+
+[commit]
+    verbose = true             # show the diff in the editor when committing
+
+[help]
+    autocorrect = 10           # `git stauts` waits 1s then runs `status`
+
+# Work identity override. Uncomment and point at a file that defines
+# user.email for repos under ~/work. Useful if you have a work email.
+# [includeIf "gitdir:~/work/"]
+#     path = ~/.gitconfig-work
