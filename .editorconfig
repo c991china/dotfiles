@@ -1,0 +1,47 @@
+# .editorconfig -- https://editorconfig.org
+# Editors that respect this: VS Code (built in), vim (needs editorconfig-vim or
+# built-in support in recent builds), JetBrains IDEs, Sublime, Emacs.
+# Purpose: stop the "tabs vs spaces" churn in diffs.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# ---- languages that are conventionally 2 spaces ----
+[*.{js,jsx,ts,tsx,json,jsonc,css,scss,less,html,htm,vue,svelte}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{md,markdown}]
+# trailing whitespace is meaningful in markdown (line break); don't strip it
+trim_trailing_whitespace = false
+indent_size = 2
+
+# ---- languages that want tabs ----
+[Makefile]
+indent_style = tab
+
+[*.go]
+indent_style = tab
+
+# ---- things that should never be touched ----
+[*.{diff,patch}]
+trim_trailing_whitespace = false
+
+[*.{bat,cmd}]
+end_of_line = crlf
+
+[*.{sh,bash}]
+indent_size = 2
+
+[*.py]
+indent_size = 4
+max_line_length = 88
