@@ -1,0 +1,87 @@
+# ~/.gitignore_global -- referenced from ~/.gitconfig via core.excludesfile.
+# OS and editor junk that should never be committed, in any repo.
+
+# ---- macOS ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon?
+.fseventsd
+*.icloud
+
+# ---- Windows ----
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.stackdump
+
+# ---- Linux ----
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ---- editors / IDEs ----
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.iml
+*.swp
+*.swo
+*.swn
+.*.sw?
+.vim/
+.netrwhist
+tags
+Session.vim
+.project
+.settings/
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- node ----
+node_modules/
+npm-debug.log*
+yarn-error.log
+.pnpm-debug.log
+.eslintcache
+.parcel-cache/
+
+# ---- env / secrets (never commit these) ----
+.env
+.env.local
+.env.*.local
+*.pem
+!*.pem.example
+
+# ---- archives / dumps ----
+*.log
+*.tar.gz
+*.zip
+*.sql.gz
+core
+core.[0-9]*
